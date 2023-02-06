@@ -14,15 +14,17 @@ class PermissionCheck
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $role)
     {
-        return $next($request);
-        if(auth()->user()->role == 'admin'){
-            return $next($request);
-        }else if(auth()->user()->role == 'officer'){
-            return $next($request); 
-        }else if(auth()->user()->role == 'user'){
+       
+
+        $rolearr = explode("|",$role);
+       //dd($rolearr);
+    
+        if(in_array(auth()->user()->role, $rolearr)){
+            //dd("hore");
             return $next($request);
         }
+        return redirect("/home");
     }
 }

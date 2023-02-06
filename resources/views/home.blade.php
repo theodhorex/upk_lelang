@@ -92,6 +92,12 @@
                                 @if($route_name == 'search') Search @else Search @endif</a>
                         </li>
                         <li
+                            class="list-group-item borderless non-active-color @if($route_name == 'history') active-indicator rounded @else bg-transparent non-active-color @endif @if(Auth::user()->role != 'user') d-none @endif">
+                            <i class="fa fa-history" aria-hidden="true"></i><a href="/history"
+                                class="text-decoration-none non-active-color remove-hover @if($route_name == 'history') text-dark @else non-active-color @endif">
+                                @if($route_name == 'history') History @else History @endif</a>
+                        </li>
+                        <li
                             class="list-group-item borderless non-active-color @if($route_name == 'inbox') active-indicator rounded @else bg-transparent non-active-color @endif @if(Auth::user()->role == 'admin') d-none @endif">
                             <i class="fa fa-inbox" aria-hidden="true"></i><a href="/inbox"
                                 class="text-decoration-none non-active-color remove-hover @if($route_name == 'inbox') text-dark @else non-active-color @endif">
@@ -100,11 +106,11 @@
                         <li
                             class="list-group-item borderless non-active-color @if($route_name == 'account') active-indicator rounded @else bg-transparent non-active-color @endif @if(Auth::user()->role != 'admin') d-none @endif">
                             <i class="fa fa-user" aria-hidden="true"></i><a href="/account-pages"
-                                class="remove-hover text-decoration-none @if($route_name == 'account') text-dark @else non-active-color @endif">
+                            class="remove-hover text-decoration-none @if($route_name == 'account') text-dark @else non-active-color @endif">
                                 Account</a>
                         </li>
                         <li
-                            class="@if($route_name == 'form') active-indicator rounded @else bg-transparent non-active-color @endif list-group-item borderless @if(Auth::user()->role != 'admin') d-none @endif">
+                            class="@if($route_name == 'form') active-indicator rounded @else bg-transparent non-active-color @endif list-group-item borderless @if(Auth::user()->role == 'user') d-none @endif">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                             <a href="/form"
                                 class="remove-hover text-decoration-none @if($route_name == 'form') text-dark @else non-active-color @endif">

@@ -32,6 +32,7 @@ class MainController extends Controller
 
         $postingan -> user_id = Auth::user()->id;
         $postingan -> title = $request -> title;
+        $postingan -> status = 'Open';
         $postingan -> subtitle = $request -> subtitle;
         $postingan -> location = $request -> location;
         $postingan -> descandcond = $request -> descandcond;
@@ -146,21 +147,15 @@ class MainController extends Controller
         $target_id = User::where('name', $user)->pluck("id")->first();
         
 
-        if(Auth::user()->role == 'admin'){
-            $search -> admin_id = Auth::user()->id;
-            $search -> user_id = $target_id;
-            $search -> massage = $message;
-            $search -> postingan_id = $id;
-        }else if(Auth::user()->role == 'officer'){
-            $search -> officer_id = Auth::user()->id;
-            $search -> user_id = $target_id;
-            $search -> massage = $message;
-            $search -> postingan_id = $id;
-        }
+        $search -> admin_id = Auth::user()->id;
+        $search -> user_id = $target_id;
+        $search -> massage = $message;
+        $search -> postingan_id = $id;
 
         $search -> save();
         $set_postingan_winner = Postingan::find($id);
         $set_postingan_winner -> winner = $user;
+        $set_postingan_winner -> status = 'Closed';
         $set_postingan_winner -> save();
 
         // Untuk activity table
@@ -172,7 +167,7 @@ class MainController extends Controller
 
     public function inbox(){
         $user_id = Auth::user()->id;
-        $get_message = Massage::where('user_id', $user_id)->get();
+        $get_message = Massage::where('user_id', $user_id)->latest()->get();
         return view('pages/inbox', compact('get_message'));
     }
 
@@ -221,17 +216,25 @@ class MainController extends Controller
         return view('pages/search', compact(['latest_postingan', 'get_all']));
     }
 
-    public function closeAuction($id){
-        $target = Postingan::find($id);
-        $target -> status = 'Closed';
-        $target -> save();
+    public function history(){
+        $datas = Massage::where('user_id', Auth::user()->id);
+        $data = $datas -> get();
+        return view('pages/history', compact('data'));
     }
 
-    public function openAuction($id){
-        $target = Postingan::find($id);
-        $target -> status = 'Open';
-        $target -> save();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function test() {
         // $lel = Postingan::with('bidData')->get();

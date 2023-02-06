@@ -1,5 +1,5 @@
     <div class="row">
-        <div class="col-6" style="overflow-y: auto;">
+        <div class="@if(Auth::user()->role == 'user') col @else col-6 @endif" style="overflow-y: auto;">
             @php
             $i = 1;
             @endphp
@@ -55,6 +55,8 @@
         alt="">
     <h2 class="text-light text-center">Oops! No Data Bro.</h2> -->
         </div>
+        @if(Auth::user()->role == 'user')
+        @else
         <div class="col-6 p-2 py-0">
             <form action="{{ url('send-message', $postingan_id) }}" method="post">
                 @csrf
@@ -78,4 +80,5 @@
                 </div>
             </form>
         </div>
+        @endif
     </div>

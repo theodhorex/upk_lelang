@@ -62,7 +62,7 @@
                     System
                     <div class="mx-4 rounded" style="background-color: #9CA4A6; width: .2vw; height: 2.3vh;"></div>
                     <p class="py-0 my-0 cursor" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="getInboxDetails({{ $message -> id }})">
-                        {{ $message -> postingan -> title }} - {{ $message -> postingan -> category }}
+                        {{ $message -> postingan -> title }} - <p class="py-0 my-0 cursor ms-1" style="color: #9CA4A6;">{{ $message -> postingan -> category }}</p>
                     </p>
                 </h5>
             </div>

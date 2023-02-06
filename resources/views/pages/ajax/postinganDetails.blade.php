@@ -73,15 +73,6 @@ $i = 1;
                 <h2 id="start_price" class="text-light fw-bold mb-1">Rp. {{ $postingans -> start_price }}</h2>
                 <h5 id="endauc" class="text-light mb-4">
                     Closing date : <b>{{ $postingans -> endauc }}</b>
-                    @if($postingans -> status == 'Open')
-                    <form action="{{ url('/open-auction', $postingans -> id) }}" method="post">
-                        <button type="submit" class="btn btn-sm btn-info fw-semibold mx-3">Close Auction</button>
-                    </form>
-                    @elseif($postingans -> status == 'Closed')
-                    <form action="{{ url('/close-auction', $postingans -> id) }}" method="post">
-                        <button type="submit" class="btn btn-sm btn-info fw-semibold mx-3">Open Auction</button>
-                    </form>
-                    @endif
                 </h5>
                 
                 @if(count($data_bid) < 1)
